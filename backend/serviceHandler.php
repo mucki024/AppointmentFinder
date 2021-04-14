@@ -5,7 +5,7 @@ include("../backend/businesslogic/simpleLogic.php");
 $param = "";
 $method = "";
 
-isset($_GET["method"]) ? $method = $_GET["method"] : false;
+isset($_GET["method"]) ? $method = $_GET["method"] : false; //ajax sent data from frontend to php file => get request necessary
 isset($_GET["param"]) ? $param = $_GET["param"] : false;
 
 $logic = new SimpleLogic();

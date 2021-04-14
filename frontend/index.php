@@ -1,6 +1,6 @@
 
 <?php 
-    require_once '../backend/db/db.php';
+    //require_once '../backend/db/dbConfig.php';
     //require_once '../backend/serviceHandler.php';
 ?>
 
@@ -18,7 +18,7 @@
     <script src="js/javascript.js"></script>
     
     <script src="app.ts"></script>
-      <title>Time finder</title>
+      <title>TimeFinder</title>
   </head>
 	 <body style="background-color:powderblue;"></body>
  

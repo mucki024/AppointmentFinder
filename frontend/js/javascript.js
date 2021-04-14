@@ -1,20 +1,24 @@
 //Starting point for JQuery init
+
+// methodnames for accessing db
+var methodName = ["allAppointments",""];
+
 $(document).ready(function () {
-    loaddata("Doe");
+    loaddata(methodName[0],"");
 });
 
-function loaddata(searchterm) {
-
+function loaddata(methodN,searchterm) {     // for loading data from db
     $.ajax({
         type: "GET",
         url: "../backend/serviceHandler.php",
         cache: false,
-        data: {method: "queryPersons", param: searchterm},
+        data: {method: "allAppointments", param: searchterm},
         dataType: "json",
         success: function (response) {
             console.log(response);
-            //$("#noOfentries").val(response.length);
-            //$("#searchResult").show(1000).delay(1000).hide(1000);
+        },
+        error: function(response){
+            console.log("Ajax was not succesfully => returned Object(JSON) might be not corretly formated")
         }
         
     });
