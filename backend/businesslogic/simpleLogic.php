@@ -16,8 +16,8 @@ class SimpleLogic
             case "allAppointments":
                $res = $this->dh->queryAllAppointments();
                 break;
-            case " ":
-                //$res = $this->dh->queryAllAppointments();
+            case "appointmentOptions":
+                $res = $this->dh->queryAppointmentOptions($param);
                 break;
             default:
                 $res = null;

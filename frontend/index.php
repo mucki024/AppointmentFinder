@@ -20,7 +20,13 @@
     <script src="app.ts"></script>
       <title>TimeFinder</title>
   </head>
-	 <body style="background-color:powderblue;"></body>
+
+	 <body style="background-color:powderblue;">
+    <div class="container">
+      <div class="list-group" id="listAppointments">
+      </div>  
+    </div>
+  </body>
  
 
 </html>

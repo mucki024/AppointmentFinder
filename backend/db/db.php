@@ -13,7 +13,15 @@
 
         public  function getAllAppointments(){      //query all appointments, insert them to object array and give back(in Datahandler)
              // prepare sql and bind parameters
-            $stmt = $this->db->prepare("SELECT * FROM appointments");
+            $stmt = $this->db->prepare("SELECT * FROM appointments ORDER BY Ablaufdatum");
+            $stmt->execute();
+            $wholeData= $stmt->fetchAll();
+            return $wholeData;
+        }
+
+        public function getAppointmentOptions($appID){        // query appointment options
+            $stmt = $this->db->prepare("SELECT dateOption FROM choosedate  WHERE appointmentsID=? ");
+            $stmt->bindParam(1,$appID);
             $stmt->execute();
             $wholeData= $stmt->fetchAll();
             return $wholeData;

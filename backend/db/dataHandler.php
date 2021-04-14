@@ -10,8 +10,7 @@ class DataHandler
         $this->db = new Database();
     }
 
-    public function queryAllAppointments()
-    {
+    public function queryAllAppointments(){
         $wholeData= $this->db->getAllAppointments();        // query from db => return array with strings
         $objectArr=[];
         foreach($wholeData as $singleRow){      // go through every single row and create new object
@@ -19,6 +18,11 @@ class DataHandler
             array_push($objectArr,$tempArr);    
         }
         return $objectArr;
+    }
+
+    public function queryAppointmentOptions($appID){      // get appointment options
+        $wholeData= $this->db->getAppointmentOptions($appID);        // query from db => return array with strings
+        return $wholeData;
     }
 /*
     private static function getAllAppointments(){      //query all appointments, insert them to object array and give back(in Datahandler)
