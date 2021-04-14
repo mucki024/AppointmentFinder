@@ -1,5 +1,5 @@
 <?php
-include("../models/appointment.php");
+include("../backend/models/appointment.php");
 class DataHandler
 {
     public function queryPersons()
