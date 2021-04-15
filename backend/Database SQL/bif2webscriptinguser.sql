@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 13. Apr 2021 um 12:53
+-- Erstellungszeit: 15. Apr 2021 um 07:53
 -- Server-Version: 10.4.14-MariaDB
 -- PHP-Version: 7.4.11
 
@@ -33,9 +33,17 @@ CREATE TABLE `appointments` (
   `AppointmentID` int(100) NOT NULL,
   `Titel` varchar(100) NOT NULL,
   `Ort` varchar(100) NOT NULL,
+  `Dauer` int(100) NOT NULL,
   `Datum` datetime NOT NULL,
   `Ablaufdatum` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `appointments`
+--
+
+INSERT INTO `appointments` (`AppointmentID`, `Titel`, `Ort`, `Dauer`, `Datum`, `Ablaufdatum`) VALUES
+(1, 'TestBesprechung', 'Vorort', 2, '2021-04-14 14:36:36', '2021-04-23 14:36:36');
 
 -- --------------------------------------------------------
 
@@ -44,10 +52,18 @@ CREATE TABLE `appointments` (
 --
 
 CREATE TABLE `choosedate` (
-  `chooseDateID` int(100) NOT NULL,
-  `chosenDate` datetime NOT NULL,
+  `choiceDateID` int(100) NOT NULL,
+  `dateOption` datetime NOT NULL,
   `appointmentsID` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `choosedate`
+--
+
+INSERT INTO `choosedate` (`choiceDateID`, `dateOption`, `appointmentsID`) VALUES
+(1, '2021-04-15 16:14:45', 1),
+(2, '2021-04-16 21:14:45', 1);
 
 -- --------------------------------------------------------
 
@@ -58,9 +74,16 @@ CREATE TABLE `choosedate` (
 CREATE TABLE `userchoice` (
   `userChoiceID` int(100) NOT NULL,
   `userName` varchar(100) NOT NULL,
-  `chosenDate` int(100) NOT NULL,
-  `comment` varchar(300) NOT NULL
+  `comment` varchar(300) NOT NULL,
+  `choiceDateID` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `userchoice`
+--
+
+INSERT INTO `userchoice` (`userChoiceID`, `userName`, `comment`, `choiceDateID`) VALUES
+(1, 'Martin', 'Maybe', 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -76,7 +99,7 @@ ALTER TABLE `appointments`
 -- Indizes für die Tabelle `choosedate`
 --
 ALTER TABLE `choosedate`
-  ADD PRIMARY KEY (`chooseDateID`);
+  ADD PRIMARY KEY (`choiceDateID`);
 
 --
 -- Indizes für die Tabelle `userchoice`
@@ -92,19 +115,19 @@ ALTER TABLE `userchoice`
 -- AUTO_INCREMENT für Tabelle `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `AppointmentID` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `AppointmentID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `choosedate`
 --
 ALTER TABLE `choosedate`
-  MODIFY `chooseDateID` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `choiceDateID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `userchoice`
 --
 ALTER TABLE `userchoice`
-  MODIFY `userChoiceID` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `userChoiceID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
