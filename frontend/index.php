@@ -22,7 +22,12 @@
   </head>
 
 	 <body style="background-color:powderblue;">
-    <div class="container">
+   
+   <?php  //  All appointments will be shown here  ?>
+  <fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#f2f2f2;border:5px solid #1F497D">
+ <div class="container">
+   <h1>Overview of the appointments:</h1>
+   
       <div class="list-group" id="listAppointments">
       </div>  
       <div class="table-responsive" id="appointmentDetails">
@@ -30,10 +35,61 @@
       <thead></thead>
       <tbody></tbody>
      </table>
-</div>
+    
+    </fieldset>
+  </div>
+<br><br>
 
-    </div>
-  </body>
+
+    <?php  //  All options will be shown here  ?> 
+   
+    <footer>
+    <div class="container">
+   
+ 
+<fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#f2f2f2;border:5px solid #1F497D">
+  <h1>Create an appointment:</h1>
+  <label for="name"> Name:</label>
+  <input type="text" id="name" name="name"><br>
+  <label for="comment">Comment:</label>
+  <input type="text" id="comment" name="comment"><br>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="date" value="" id="date1">
+  <label class= "form-check-label" for="date1">
+  Hardcoded 20.04.2021
+  </label>
+</div><br>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="date" value="" id="date2">
+  <label class="form-check-label" for="date2">
+  Hardcoded 21.04.2021
+  </label>
+</div><br>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="date" value="" id="date3" >
+  <label class="form-check-label" for="date3">
+  Hardcoded 22.04.2021</label>
+</div><br>
+  <button type="button" class="btn btn-success" id="button">Accept</button>
+ </fieldset>
+</div>
+</footer>
+ </body>
  
 
 </html>
+
+
+
+<script>
+$('#button').on('click',function(){
+    $("input[name='date']").each(function(){
+        if ($(this).is(":checked")) {
+            $(this).prop("disabled",true);
+        }
+    });
+});
+</script>
+
+
+ 
