@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 15. Apr 2021 um 07:53
+-- Erstellungszeit: 18. Apr 2021 um 22:20
 -- Server-Version: 10.4.14-MariaDB
 -- PHP-Version: 7.4.11
 
@@ -54,6 +54,7 @@ INSERT INTO `appointments` (`AppointmentID`, `Titel`, `Ort`, `Dauer`, `Datum`, `
 CREATE TABLE `choosedate` (
   `choiceDateID` int(100) NOT NULL,
   `dateOption` datetime NOT NULL,
+  `votes` int(100) NOT NULL DEFAULT 0,
   `appointmentsID` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -61,9 +62,9 @@ CREATE TABLE `choosedate` (
 -- Daten für Tabelle `choosedate`
 --
 
-INSERT INTO `choosedate` (`choiceDateID`, `dateOption`, `appointmentsID`) VALUES
-(1, '2021-04-15 16:14:45', 1),
-(2, '2021-04-16 21:14:45', 1);
+INSERT INTO `choosedate` (`choiceDateID`, `dateOption`, `votes`, `appointmentsID`) VALUES
+(1, '2021-04-15 16:14:45', 0, 1),
+(2, '2021-04-16 21:14:45', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -75,15 +76,16 @@ CREATE TABLE `userchoice` (
   `userChoiceID` int(100) NOT NULL,
   `userName` varchar(100) NOT NULL,
   `comment` varchar(300) NOT NULL,
-  `choiceDateID` int(100) NOT NULL
+  `choiceDateID` int(100) NOT NULL,
+  `AppointmentsID` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `userchoice`
 --
 
-INSERT INTO `userchoice` (`userChoiceID`, `userName`, `comment`, `choiceDateID`) VALUES
-(1, 'Martin', 'Maybe', 1);
+INSERT INTO `userchoice` (`userChoiceID`, `userName`, `comment`, `choiceDateID`, `AppointmentsID`) VALUES
+(1, 'Martin', 'Maybe', 1, 1);
 
 --
 -- Indizes der exportierten Tabellen

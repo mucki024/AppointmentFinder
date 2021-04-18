@@ -20,7 +20,15 @@
         }
 
         public function getAppointmentOptions($appID){        // query appointment options
-            $stmt = $this->db->prepare("SELECT dateOption FROM choosedate  WHERE appointmentsID=? ");
+            $stmt = $this->db->prepare("SELECT choosedate.dateOption,choosedate.votes,appointments.Dauer FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.appointmentID WHERE choosedate.appointmentsID=? ");
+            $stmt->bindParam(1,$appID);
+            $stmt->execute();
+            $wholeData= $stmt->fetchAll();
+            return $wholeData;
+        }
+
+        public function getAppointmentUserData($appID){        // query appointment User data
+            $stmt = $this->db->prepare("SELECT userchoice.UserName,userchoice.comment,chooseDate.dateOption FROM userchoice JOIN chooseDate ON userchoice.appointmentsID=chooseDate.appointmentsID WHERE userchoice.appointmentsID=?");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
             $wholeData= $stmt->fetchAll();

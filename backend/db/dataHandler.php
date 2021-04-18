@@ -24,6 +24,11 @@ class DataHandler
         $wholeData= $this->db->getAppointmentOptions($appID);        // query from db => return array with strings
         return $wholeData;
     }
+
+    public function queryAppointmentUserData($appID){
+        $userData= $this->db->getAppointmentUserData($appID);
+        return $userData;
+    }
 /*
     private static function getAllAppointments(){      //query all appointments, insert them to object array and give back(in Datahandler)
         // prepare sql and bind parameters

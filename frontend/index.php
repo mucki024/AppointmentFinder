@@ -25,6 +25,13 @@
     <div class="container">
       <div class="list-group" id="listAppointments">
       </div>  
+      <div class="table-responsive" id="appointmentDetails">
+      <table class="table table-hover" id="appointmentTable">
+      <thead></thead>
+      <tbody></tbody>
+     </table>
+</div>
+
     </div>
   </body>
  
