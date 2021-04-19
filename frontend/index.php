@@ -24,7 +24,7 @@
 	 <body style="background-color:powderblue;">
    
    <?php  //  All appointments will be shown here  ?>
-  <fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#797979;border:5px solid #1F497D">
+  <fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
  <div class="container">
    <h1>Overview of the appointments:</h1>
    
@@ -47,7 +47,7 @@
     <div class="container">
    
  
-<fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#797979;border:5px solid #1F497D">
+<fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
   <h1>Create an appointment:</h1>
   <label for="name"> Name:</label>
   <input type="text" id="name" name="name"><br>
@@ -70,7 +70,7 @@
   <label class="form-check-label" for="date3">
   Hardcoded 22.04.2021</label>
 </div><br>
-  <button type="button" class="btn btn-success" id="button">Accept</button>
+  <button type="button" class="btn btn-success"  id="button">Accept</button>
  </fieldset>
 </div>
 </footer>
