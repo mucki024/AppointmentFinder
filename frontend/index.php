@@ -1,7 +1,7 @@
 
 <?php 
-    require_once '../backend/db/dbConfig.php';
-    require_once '../backend/serviceHandler.php';
+    //require_once '../backend/db/dbConfig.php';
+    //require_once '../backend/serviceHandler.php';
 ?>
 
 
