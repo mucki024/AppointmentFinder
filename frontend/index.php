@@ -1,7 +1,7 @@
 
 <?php 
-    //require_once '../backend/db/dbConfig.php';
-    //require_once '../backend/serviceHandler.php';
+    require_once '../backend/db/dbConfig.php';
+    require_once '../backend/serviceHandler.php';
 ?>
 
 
@@ -17,7 +17,7 @@
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="js/javascript.js"></script>
     
-    <script src="app.ts"></script>
+    <script src="app.js"></script>
       <title>TimeFinder</title>
   </head>
 
@@ -56,20 +56,25 @@
 <div class="form-check">
   <input class="form-check-input" type="checkbox" name="date" value="" id="date1">
   <label class= "form-check-label" for="date1">
-  Hardcoded 20.04.2021
+  Hardcoded 03.05.2021
   </label>
 </div><br>
 <div class="form-check">
   <input class="form-check-input" type="checkbox" name="date" value="" id="date2">
   <label class="form-check-label" for="date2">
-  Hardcoded 21.04.2021
+  Hardcoded 04.05.2021
   </label>
 </div><br>
 <div class="form-check">
   <input class="form-check-input" type="checkbox" name="date" value="" id="date3" >
   <label class="form-check-label" for="date3">
-  Hardcoded 22.04.2021</label>
+  Hardcoded 05.05.2021</label>
 </div><br>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="date" value="" id="date4" >
+  <label class="form-check-label" for="date4">
+  Hardcoded 06.05.2021</label>
+  </div><br>
   <button type="button" class="btn btn-success"  id="button">Accept</button>
  </fieldset>
 </div>
