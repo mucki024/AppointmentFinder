@@ -64,36 +64,31 @@ function loadAppointment(){        // executed if clicked on appointment  => ano
 }
 
 function showAppointmentOptions(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
+    console.log(serverResponse);
     let helper=1;
     for(let entry of serverResponse){       //display date options
         let txt1 = '<div class="form-check">';
-        let txt2 = '<input class="form-check-input" type="checkbox" id="option'+helper+'">';
+        let txt2 = '<input class="form-check-input" type="checkbox" data-id="'+entry["choiceDateID"]+'" id="option'+helper+'">';        //save id of checkbox in html
         let txt3 = '<label class= "form-check-label" for="option'+helper+'">';
         let txt4 = entry["dateOption"]+'</label>';
-        let txt5 = '</div><br>';
-        $("#dateOptions").append(txt1+txt2+txt3+txt4+txt5);        //append in tablerow of head
+        let txt5 = '<span> '+entry["votes"]+' votes</span>';
+        let txt6 = '</div><br>';
+        $("#dateOptions").append(txt1+txt2+txt3+txt4+txt5+txt6);        //append in tablerow of head
         helper++;
     }
     $("#appointmentDetails").show();
-    /*
-    let tbl = '<tr><th scope="col">Username</th></tr>';
-    $("thead").append(tbl);     //create tbl head
-    for(let entry of serverResponse){
-        let txt1 = '<th scope="col">'; //oncklick="showAppointment(this)"
-        let txt2 = entry["dateOption"];
-        let txt3 = '</th>';
-        $("thead").children().append(txt1+txt2+txt3);        //append in tablerow of head
-    }
-    $("#appointmentDetails").show();*/
 }
 
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
     for(let entry of serverResponse){
-        let txt1 = '<tr><td>'; //oncklick="showAppointment(this)"
-        let txt2 = entry["UserName"];
-        let txt3 = '</td></tr>';
-        $("tbody").append(txt1+txt2+txt3);        //append in tablerow of head
+        if(entry["comment"]!==null){
+            let txt1 = '<div class="card" style="width: 18rem;"><div class="card-body">'; //oncklick="showAppointment(this)"
+            let txt2 = '<h5 class="card-title">'+entry["userName"]+'</h5>';
+            let txt3 = '<p class="card-text">'+entry["comment"]+'</p>';
+            let txt4 = '</div></div>';
+            $("#appointmentDetails").append(txt1+txt2+txt3+txt4);        //append in tablerow of head
+        }
     }
     
 }

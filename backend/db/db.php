@@ -15,23 +15,23 @@
              // prepare sql and bind parameters
             $stmt = $this->db->prepare("SELECT * FROM appointments ORDER BY Ablaufdatum");
             $stmt->execute();
-            $wholeData= $stmt->fetchAll();
+            $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $wholeData;
         }
 
         public function getAppointmentOptions($appID){        // query appointment options
-            $stmt = $this->db->prepare("SELECT choosedate.dateOption,choosedate.votes,appointments.Dauer FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.appointmentID WHERE choosedate.appointmentsID=? ");
+            $stmt = $this->db->prepare("SELECT choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
-            $wholeData= $stmt->fetchAll();
+            $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $wholeData;
         }
 
         public function getAppointmentUserData($appID){        // query appointment User data
-            $stmt = $this->db->prepare("SELECT userchoice.UserName,userchoice.comment,chooseDate.dateOption FROM userchoice JOIN chooseDate ON userchoice.appointmentsID=chooseDate.appointmentsID WHERE userchoice.appointmentsID=?");
+            $stmt = $this->db->prepare("SELECT userchoice.userName,userchoice.comment,choosedate.dateOption FROM userchoice JOIN choosedate ON userchoice.choiceDateID=choosedate.choiceDateID WHERE userchoice.appointmentsID=?");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
-            $wholeData= $stmt->fetchAll();
+            $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $wholeData;
         }
 
