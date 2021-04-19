@@ -25,66 +25,63 @@
    
    <?php  //  All appointments will be shown here  ?>
   <fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
- <div class="container">
-   <h1>Overview of the appointments:</h1>
-   
-      <div class="list-group" id="listAppointments">
-      </div>  
-      <div class="table-responsive" id="appointmentDetails">
-      <table class="table table-hover" id="appointmentTable">
-      <thead></thead>
-      <tbody></tbody>
-     </table>
+  <div class="container">
+    <h1>Overview of the appointments:</h1>
     
-    </fieldset>
-  </div>
+        <div class="list-group" id="listAppointments">
+        </div>  
+        
+  </div>  
+  </fieldset>
+  
 <br><br>
 
 
     <?php  //  All options will be shown here  ?> 
    
-    <footer>
-    <div class="container">
+  <footer>
+  <div class="container">
    
  
-<fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
-  <h1>Create an appointment:</h1>
-  <label for="name"> Name:</label>
-  <input type="text" id="name" name="name"><br>
-  <label for="comment">Comment:</label>
-  <input type="text" id="comment" name="comment"><br>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" name="date" value="" id="date1">
-  <label class= "form-check-label" for="date1">
-  Hardcoded 03.05.2021
-  </label>
-</div><br>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" name="date" value="" id="date2">
-  <label class="form-check-label" for="date2">
-  Hardcoded 04.05.2021
-  </label>
-</div><br>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" name="date" value="" id="date3" >
-  <label class="form-check-label" for="date3">
-  Hardcoded 05.05.2021</label>
-</div><br>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" name="date" value="" id="date4" >
-  <label class="form-check-label" for="date4">
-  Hardcoded 06.05.2021</label>
-  </div><br>
-  <button type="button" class="btn btn-success"  id="button">Accept</button>
- </fieldset>
-</div>
-</footer>
+    <fieldset id="appointmentDetails" style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
+      <h1>Choose an appointment:</h1>
+      <label for="userName"> Username:</label>
+      <input type="text" id="userName" name="name"><br>
+      <label for="Comment">Comment:</label>
+      <input type="text" id="Comment" name="comment"><br>
+      <div id="dateOptions">
+      </div>
+
+      <!--
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="date" value="" id="date1">
+        <label class= "form-check-label" for="date1">
+        Hardcoded 03.05.2021
+        </label>
+      </div><br>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="date" value="" id="date2">
+      <label class="form-check-label" for="date2">
+      Hardcoded 04.05.2021
+      </label>
+    </div><br>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="date" value="" id="date3" >
+      <label class="form-check-label" for="date3">
+      Hardcoded 05.05.2021</label>
+    </div><br>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="date" value="" id="date4" >
+      <label class="form-check-label" for="date4">
+      Hardcoded 06.05.2021</label>
+      </div><br>
+    -->
+      <button type="button" class="btn btn-success"  id="button">Accept</button>
+    </fieldset>
+  </div>
+  </footer>
  </body>
- 
-
 </html>
-
-
 
 <script>
 $('#button').on('click',function(){

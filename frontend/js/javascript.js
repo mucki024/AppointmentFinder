@@ -64,6 +64,18 @@ function loadAppointment(){        // executed if clicked on appointment  => ano
 }
 
 function showAppointmentOptions(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
+    let helper=1;
+    for(let entry of serverResponse){       //display date options
+        let txt1 = '<div class="form-check">';
+        let txt2 = '<input class="form-check-input" type="checkbox" id="option'+helper+'">';
+        let txt3 = '<label class= "form-check-label" for="option'+helper+'">';
+        let txt4 = entry["dateOption"]+'</label>';
+        let txt5 = '</div><br>';
+        $("#dateOptions").append(txt1+txt2+txt3+txt4+txt5);        //append in tablerow of head
+        helper++;
+    }
+    $("#appointmentDetails").show();
+    /*
     let tbl = '<tr><th scope="col">Username</th></tr>';
     $("thead").append(tbl);     //create tbl head
     for(let entry of serverResponse){
@@ -72,7 +84,7 @@ function showAppointmentOptions(serverResponse){        // executed after data f
         let txt3 = '</th>';
         $("thead").children().append(txt1+txt2+txt3);        //append in tablerow of head
     }
-    $("#appointmentDetails").show();
+    $("#appointmentDetails").show();*/
 }
 
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
