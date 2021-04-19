@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Apr 2021 um 22:20
+-- Erstellungszeit: 19. Apr 2021 um 21:42
 -- Server-Version: 10.4.14-MariaDB
 -- PHP-Version: 7.4.11
 
@@ -33,7 +33,7 @@ CREATE TABLE `appointments` (
   `AppointmentID` int(100) NOT NULL,
   `Titel` varchar(100) NOT NULL,
   `Ort` varchar(100) NOT NULL,
-  `Dauer` int(100) NOT NULL,
+  `Dauer` time NOT NULL,
   `Datum` datetime NOT NULL,
   `Ablaufdatum` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`AppointmentID`, `Titel`, `Ort`, `Dauer`, `Datum`, `Ablaufdatum`) VALUES
-(1, 'TestBesprechung', 'Vorort', 2, '2021-04-14 14:36:36', '2021-04-23 14:36:36');
+(1, 'TestBesprechung', 'Vorort', '02:00:00', '2021-04-14 14:36:36', '2021-04-23 14:36:36');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `choosedate` (
 --
 
 INSERT INTO `choosedate` (`choiceDateID`, `dateOption`, `votes`, `appointmentsID`) VALUES
-(1, '2021-04-15 16:14:45', 0, 1),
+(1, '2021-04-15 16:14:45', 1, 1),
 (2, '2021-04-16 21:14:45', 0, 1);
 
 -- --------------------------------------------------------
@@ -77,15 +77,16 @@ CREATE TABLE `userchoice` (
   `userName` varchar(100) NOT NULL,
   `comment` varchar(300) NOT NULL,
   `choiceDateID` int(100) NOT NULL,
-  `AppointmentsID` int(100) NOT NULL
+  `appointmentsID` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `userchoice`
 --
 
-INSERT INTO `userchoice` (`userChoiceID`, `userName`, `comment`, `choiceDateID`, `AppointmentsID`) VALUES
-(1, 'Martin', 'Maybe', 1, 1);
+INSERT INTO `userchoice` (`userChoiceID`, `userName`, `comment`, `choiceDateID`, `appointmentsID`) VALUES
+(1, 'Martin', 'Maybe', 1, 1),
+(2, 'Martin', 'new Comment', 1, 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -129,7 +130,7 @@ ALTER TABLE `choosedate`
 -- AUTO_INCREMENT für Tabelle `userchoice`
 --
 ALTER TABLE `userchoice`
-  MODIFY `userChoiceID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userChoiceID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

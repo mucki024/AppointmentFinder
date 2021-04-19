@@ -20,7 +20,7 @@
         }
 
         public function getAppointmentOptions($appID){        // query appointment options
-            $stmt = $this->db->prepare("SELECT choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
+            $stmt = $this->db->prepare("SELECT appointments.Titel,choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
             $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);

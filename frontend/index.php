@@ -44,7 +44,7 @@
    
  
     <fieldset id="appointmentDetails" style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
-      <h1>Choose an Option:</h1>
+      <h1 id="hOption">Choose an Option:</h1>
       <label for="userName"> Username:</label>
       <input type="text" id="userName" name="name"><br>
       <label for="Comment">Comment:</label>

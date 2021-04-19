@@ -65,6 +65,7 @@ function loadAppointment(){        // executed if clicked on appointment  => ano
 
 function showAppointmentOptions(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
+    $("#hOption").text("Choose for "+serverResponse[0]["Titel"]);
     let helper=1;
     for(let entry of serverResponse){       //display date options
         let txt1 = '<div class="form-check">';
@@ -89,6 +90,5 @@ function showAppointmentUserData(serverResponse){        // executed after data 
             let txt4 = '</div></div>';
             $("#appointmentDetails").append(txt1+txt2+txt3+txt4);        //append in tablerow of head
         }
-    }
-    
+    }   
 }
