@@ -22,6 +22,9 @@ class SimpleLogic
             case "appointmentUsers":
                 $res = $this->dh->queryAppointmentUserData($param);
                 break;
+            case "createAppointment":
+                $res = $this->dh->createAppointment($param);
+                break;
             default:
                 $res = null;
                 break;

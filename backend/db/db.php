@@ -1,7 +1,6 @@
 
 <?php
     //DB Klasse
-
     class Database{
 
         private $db;
@@ -33,6 +32,17 @@
             $stmt->execute();
             $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $wholeData;
+        }
+
+        public function createAppointment($titel,$place,$duration,$expireDate){
+            $stmt = $this->db->prepare("INSERT INTO appointments (Titel, Ort, Dauer, Ablaufdatum) VALUES (?, ?, ?, ?)");
+            $stmt->bindParam(1,$titel);
+            $stmt->bindParam(2,$place);
+            $stmt->bindParam(3,$duration);
+            $stmt->bindParam(4,$expireDate);
+            $stmt->execute();
+            $last_id = $this->db->lastInsertId();
+            return $last_id;
         }
 
         function __destruct() { // close db connection

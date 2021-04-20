@@ -1,18 +1,19 @@
 //Starting point for JQuery init
 
 // methodnames for accessing db
-var methodName = ["allAppointments","appointmentOptions","appointmentUsers"];
+var methodName = ["allAppointments","appointmentOptions","appointmentUsers","createAppointment"];
 //var dbResponse;
 
 $(document).ready(function () {
     loaddata(methodName[0],"");     //load all appointments
     $("#listAppointments").on("click","button",loadAppointment);     // click on appointment to see details (needs to be defined here, for future buttons => because jquery)
     $("#appointmentDetails").hide();
+    $("#btnFormCreate").on("click",loadForm);
 });
 
 function loaddata(methodN,searchterm) {     // for loading data from db => should be used multiple times depending on desired query
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "../backend/serviceHandler.php",
         cache: false,
         data: {method: methodN, param: searchterm},
@@ -28,6 +29,9 @@ function loaddata(methodN,searchterm) {     // for loading data from db => shoul
                     break;
                 case methodName[2]:     //data for useer comments and other votes
                     showAppointmentUserData(response);
+                    break;
+                case methodName[3]:
+                    console.log("created appointment");
                     break;
                 default:
             }
@@ -106,5 +110,38 @@ function showAppointmentUserData(serverResponse){        // executed after data 
             }
         }
     }
-
 }
+
+function loadForm(){        //make form visible and hide create button
+    $("#btnFormCreate").hide();
+    $("#formCreate").removeAttr("hidden");
+}
+
+//senden der Daten geht noch nicht => Problem wsl beim entgegennehmen des Backends, Vermutung: data als object
+function validateForm(){
+    $("#btnFormCreate").show();
+    $("#formCreate").attr("hidden",true);
+    let arrForm = [];
+    
+    let myObj = { "titel":"", "place":"", "duration":"","dateOption1":"", "expireDate":"" };
+    //form validation needs to be added
+
+
+
+    $('#formCreate').children('input').each(function () {       // for each input children save user input in array
+        arrForm.push(this.value); // "this" is the current element in the loop
+    });
+    //convert date and time to datetime
+    let dateOption1 = new Date(arrForm[2]+" "+arrForm[3]);
+    let expireDate = new Date(arrForm[5]+" "+arrForm[6]);
+    let helper=0;
+    //created JS object for better acces in backend
+    myObj["titel"] = arrForm[0];
+    myObj["place"] = arrForm[1];
+    myObj["duration"] = arrForm[4];
+    myObj["dateOption1"] = dateOption1;
+    myObj["expireDate"] = expireDate;
+    console.log(JSON.stringify(myObj));
+    loaddata(methodName[3],JSON.stringify(myObj));
+}
+

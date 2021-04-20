@@ -5,8 +5,8 @@ include("../backend/businesslogic/simpleLogic.php");
 $param = "";
 $method = "";
 
-isset($_GET["method"]) ? $method = $_GET["method"] : false; //ajax sent data from frontend to php file => get request necessary
-isset($_GET["param"]) ? $param = $_GET["param"] : false;
+isset($_POST["method"]) ? $method = $_POST["method"] : false; //ajax sent data from frontend to php file => get request necessary
+isset($_POST["param"]) ? $param = $_POST["param"] : false;
 
 $logic = new SimpleLogic();
 $result = $logic->handleRequest($method, $param);
@@ -29,4 +29,6 @@ function response($method, $httpStatus, $data)
             echo ("Method not supported yet!");
     }
 }
+
+
 ?>

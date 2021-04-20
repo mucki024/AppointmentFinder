@@ -80,7 +80,24 @@
     </fieldset>
     <fieldset id="createAppointment" class="huelle">
       <h1>Create new appointment</h1>
-      <button type="button" class="btn btn-success"  id="button">create appointment</button>
+      <button type="button" class="btn btn-success"  id="btnFormCreate">create appointment</button>
+      <!--form is hidden -->
+      <form id="formCreate"  onsubmit='return validateForm()' hidden>
+        <label for="formTitel">titel</label>
+        <input type="name" class="form-control" name="formTitel" id="formTitel" required>
+        <label for="formPlace">place</label>
+        <input type="name" class="form-control" id="formPlace">
+        <label for="formPlace">Dateoption1</label>
+        <input type="date" class="form-control" id="formDate1">
+        <input type="time" class="form-control" id="formTime1">
+        <label for="formDuration">select duration [h:min]</label>
+        <input type="time" id="formDuration" > 
+        <label for="formExpireDate">expire date</label>
+        <input type="date" class="form-control" id="formExpireDate">
+        <input type="time" id="formExpireTime" > 
+        <br>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form> 
     </fieldset>
   </div>
   </footer>
