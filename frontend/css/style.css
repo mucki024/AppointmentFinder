@@ -23,3 +23,15 @@ footer input{
 .card{
 	margin-top: 2px;
 }
+
+.huelle{
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left:20%;
+	margin-right:20%;
+	font-family:sans-serif;
+	padding:15px;
+	border-radius:5px;
+	background:#a9a9a9;
+	border:5px solid #1F497D
+}

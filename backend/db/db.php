@@ -28,7 +28,7 @@
         }
 
         public function getAppointmentUserData($appID){        // query appointment User data
-            $stmt = $this->db->prepare("SELECT userchoice.userName,userchoice.comment,choosedate.dateOption FROM userchoice JOIN choosedate ON userchoice.choiceDateID=choosedate.choiceDateID WHERE userchoice.appointmentsID=?");
+            $stmt = $this->db->prepare("SELECT userchoice.choiceDateID,userchoice.userName,userchoice.comment,choosedate.dateOption FROM userchoice JOIN choosedate ON userchoice.choiceDateID=choosedate.choiceDateID WHERE userchoice.appointmentsID=?");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
             $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);

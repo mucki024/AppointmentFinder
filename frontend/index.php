@@ -24,7 +24,7 @@
 	 <body style="background-color:powderblue;">
    
    <?php  //  All appointments will be shown here  ?>
-  <fieldset style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
+  <fieldset class="huelle">
   <div class="container">
     <h1>Overview of the appointments:</h1>
     
@@ -34,7 +34,7 @@
   </div>  
   </fieldset>
   
-<br><br>
+
 
 
     <?php  //  All options will be shown here  ?> 
@@ -43,7 +43,7 @@
   <div class="container">
    
  
-    <fieldset id="appointmentDetails" style="margin-left:20%;margin-right:20%;font-family:sans-serif;padding:15px;border-radius:5px;background:#a9a9a9;border:5px solid #1F497D">
+    <fieldset id="appointmentDetails" class="huelle">
       <h1 id="hOption">Choose an Option:</h1>
       <label for="userName"> Username:</label>
       <input type="text" id="userName" name="name"><br>
@@ -77,6 +77,10 @@
       </div><br>
     -->
       <button type="button" class="btn btn-success"  id="button">Accept</button>
+    </fieldset>
+    <fieldset id="createAppointment" class="huelle">
+      <h1>Create new appointment</h1>
+      <button type="button" class="btn btn-success"  id="button">create appointment</button>
     </fieldset>
   </div>
   </footer>

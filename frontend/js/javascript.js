@@ -82,13 +82,29 @@ function showAppointmentOptions(serverResponse){        // executed after data f
 
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
+    let allIndexes= [];     //holds all options for appointment
     for(let entry of serverResponse){
-        if(entry["comment"]!==null){
+        if(entry["comment"]!==null){            //display comments
             let txt1 = '<div class="card" style="width: 18rem;"><div class="card-body">'; //oncklick="showAppointment(this)"
             let txt2 = '<h5 class="card-title">'+entry["userName"]+'</h5>';
             let txt3 = '<p class="card-text">'+entry["comment"]+'</p>';
             let txt4 = '</div></div>';
             $("#appointmentDetails").append(txt1+txt2+txt3+txt4);        //append in tablerow of head
         }
+        if(!allIndexes.includes(entry["choiceDateID"])){        //if dateOption is not spotted yet, include it in array
+            allIndexes.push(entry["choiceDateID"]);
+        }
     }   
+    for(let singleIndex of allIndexes){     // for every index of dateOptions display the users who voted for it
+        let txt1= '<label>Option '+singleIndex+': </label>';
+        let txt2= '<ul id="userChose'+singleIndex+'" class="list-group list-group-horizontal"></ul>';       //create new ul for everey option
+        $("#appointmentDetails").append(txt1+txt2);
+        for(let entry of serverResponse){       //if a user checked this displayed option => display the username
+            if(entry["choiceDateID"]== singleIndex){
+                let txt3 = '<li class="list-group-item">'+entry["userName"]+'</li>';
+                $("#userChose"+singleIndex).append(txt3);
+            }
+        }
+    }
+
 }
