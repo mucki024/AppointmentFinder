@@ -9,11 +9,12 @@ $(document).ready(function () {
     $("#listAppointments").on("click","button",loadAppointment);     // click on appointment to see details (needs to be defined here, for future buttons => because jquery)
     $("#appointmentDetails").hide();
     $("#btnFormCreate").on("click",loadForm);
+    $('#formCreate').on("submit",validateForm);
 });
 
 function loaddata(methodN,searchterm) {     // for loading data from db => should be used multiple times depending on desired query
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "../backend/serviceHandler.php",
         cache: false,
         data: {method: methodN, param: searchterm},
@@ -115,17 +116,17 @@ function showAppointmentUserData(serverResponse){        // executed after data 
 function loadForm(){        //make form visible and hide create button
     $("#btnFormCreate").hide();
     $("#formCreate").removeAttr("hidden");
+    //validateForm();
 }
 
 //senden der Daten geht noch nicht => Problem wsl beim entgegennehmen des Backends, Vermutung: data als object
 function validateForm(){
     $("#btnFormCreate").show();
     $("#formCreate").attr("hidden",true);
+    event.preventDefault();     //important! otherwise the form will reload the whole page and ajax wont be executed right 
     let arrForm = [];
-    
     let myObj = { "titel":"", "place":"", "duration":"","dateOption1":"", "expireDate":"" };
     //form validation needs to be added
-
 
 
     $('#formCreate').children('input').each(function () {       // for each input children save user input in array
@@ -134,14 +135,24 @@ function validateForm(){
     //convert date and time to datetime
     let dateOption1 = new Date(arrForm[2]+" "+arrForm[3]);
     let expireDate = new Date(arrForm[5]+" "+arrForm[6]);
-    let helper=0;
     //created JS object for better acces in backend
     myObj["titel"] = arrForm[0];
     myObj["place"] = arrForm[1];
     myObj["duration"] = arrForm[4];
     myObj["dateOption1"] = dateOption1;
     myObj["expireDate"] = expireDate;
-    console.log(JSON.stringify(myObj));
-    loaddata(methodName[3],JSON.stringify(myObj));
+    //send data as post to backend and as JSON 
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        cache: false,
+        data: {method: methodName[3], parameter: JSON.stringify(myObj)},
+        dataType: "json",
+        success: function (response) {      
+            console.log("success");
+        }
+    });
+    
+      
 }
 

@@ -34,7 +34,7 @@
             return $wholeData;
         }
 
-        public function createAppointment($titel,$place,$duration,$expireDate){
+        public function createAppointmentDB($titel,$place,$duration,$expireDate){
             $stmt = $this->db->prepare("INSERT INTO appointments (Titel, Ort, Dauer, Ablaufdatum) VALUES (?, ?, ?, ?)");
             $stmt->bindParam(1,$titel);
             $stmt->bindParam(2,$place);
@@ -43,6 +43,13 @@
             $stmt->execute();
             $last_id = $this->db->lastInsertId();
             return $last_id;
+        }
+
+        public function createDateOption($appindex, $dateOption){
+            $stmt = $this->db->prepare("INSERT INTO choosedate (dateOption, appointmentsID) VALUES (?, ?)");
+            $stmt->bindParam(1,$dateOption);
+            $stmt->bindParam(2,$appindex);
+            $stmt->execute();
         }
 
         function __destruct() { // close db connection

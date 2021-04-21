@@ -30,18 +30,15 @@ class DataHandler
         return $userData;
     }
 
-    public function createAppointment($arrForm){
-        //$tempObj= new Appointment(0,$arrForm["titel"],$arrForm["place"],$arrForm["duration"],date('Y-m-d H:i'),$arrForm["Ablaufdatum"]);
-        /*$titel = $arrForm["titel"];
+    public function createAppointment($arrForm){//$arrForm){
+        //var_dump($arrForm) ;
+        $titel = $arrForm["titel"];
         $place = $arrForm["place"];
         $duration = $arrForm["duration"];
-        $expireDate = $arrForm["Ablaufdatum"];*/
-        $titel="Hey";
-        $place="new";
-        $duration= time();
-        $expireDate= date();
-        $userData= $this->db->createAppointment($titel,$place,$duration,$expireDate);
-        return $userData;
+        $expireDate = $arrForm["expireDate"];
+        $dateOption1 = $arrForm["dateOption1"];
+        $createdIndex= $this->db->createAppointmentDB($titel,$place,$duration,$expireDate);
+        $this->db->createDateOption($createdIndex,$dateOption1);
     }
 /*
     private static function getAllAppointments(){      //query all appointments, insert them to object array and give back(in Datahandler)

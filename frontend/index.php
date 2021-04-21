@@ -82,9 +82,9 @@
       <h1>Create new appointment</h1>
       <button type="button" class="btn btn-success"  id="btnFormCreate">create appointment</button>
       <!--form is hidden -->
-      <form id="formCreate"  onsubmit='return validateForm()' hidden>
+      <form id="formCreate"  hidden>
         <label for="formTitel">titel</label>
-        <input type="name" class="form-control" name="formTitel" id="formTitel" required>
+        <input type="name" class="form-control" name="formTitel" id="formTitel" >
         <label for="formPlace">place</label>
         <input type="name" class="form-control" id="formPlace">
         <label for="formPlace">Dateoption1</label>
