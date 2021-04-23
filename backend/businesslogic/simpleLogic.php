@@ -26,6 +26,10 @@ class SimpleLogic
             case "createAppointment":
                 //no return
                 $this->dh->createAppointment($param);
+                $res= "success";        //there is no return from this function => we dont want to send NULL to interface
+                break;
+            case "createChoice":
+                $this->dh->saveChoice($param);
                 $res= "success";
                 break;
             default:

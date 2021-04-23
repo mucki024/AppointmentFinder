@@ -40,6 +40,17 @@ class DataHandler
         $createdIndex= $this->db->createAppointmentDB($titel,$place,$duration,$expireDate);
         $this->db->createDateOption($createdIndex,$dateOption1);
     }
+
+    public function saveChoice($arrChoices){
+        $username = $arrChoices['username'];
+        $choices = $arrChoices["choice"];
+        $comment = $arrChoices["comment"];
+        $appID = $arrChoices["appID"];
+        foreach($choices as $singleChoice){     //for every checked box create entry
+            $lastID= $this->db->saveChoice($username,$singleChoice,$appID);
+        }
+        $this->db->saveComment($lastID,$comment);     //so that only one comment is added, even by checking multiple checkboxes
+    }
 /*
     private static function getAllAppointments(){      //query all appointments, insert them to object array and give back(in Datahandler)
         // prepare sql and bind parameters

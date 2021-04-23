@@ -1,7 +1,7 @@
 //Starting point for JQuery init
 
 // methodnames for accessing db
-var methodName = ["allAppointments","appointmentOptions","appointmentUsers","createAppointment"];
+var methodName = ["allAppointments","appointmentOptions","appointmentUsers","createAppointment","createChoice"];
 //var dbResponse;
 
 $(document).ready(function () {
@@ -10,6 +10,7 @@ $(document).ready(function () {
     $("#appointmentDetails").hide();
     $("#btnFormCreate").on("click",loadForm);
     $('#formCreate').on("submit",validateForm);
+    $('#button').on("click",sendChoice);
 });
 
 function loaddata(methodN,searchterm) {     // for loading data from db => should be used multiple times depending on desired query
@@ -43,6 +44,10 @@ function loaddata(methodN,searchterm) {     // for loading data from db => shoul
     });
 }
 
+/*
+        display all appointments
+*/
+
 function showAppointments(serverResponse){      // load appointments into list
     for(let entry of serverResponse){
         let currentdate=new Date();     //cur dateTime
@@ -68,13 +73,16 @@ function loadAppointment(){        // executed if clicked on appointment  => ano
     loaddata(methodName[2],appointmentID);     //load all appointments
 }
 
+/*
+        display all appointment Details
+*/
 function showAppointmentOptions(serverResponse,appointmentID){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
     $("#hOption").text("Choose for "+serverResponse[0]["Titel"]);
     let helper=1;
     for(let entry of serverResponse){       //display date options
         let txt1 = '<div class="form-check">';
-        let txt2 = '<input class="form-check-input" type="checkbox" data-id="'+entry["choiceDateID"]+'" id="option'+helper+'">';        //save id of checkbox in html
+        let txt2 = '<input class="form-check-input" type="checkbox" data-id="'+entry["choiceDateID"]+'" data-appID='+entry["appointmentsID"]+' id="option'+helper+'">';        //save id of checkbox in html
         let txt3 = '<label class= "form-check-label" for="option'+helper+'">';
         let txt4 = entry["dateOption"]+'</label>';
         let txt5 = '<span> '+entry["votes"]+' votes</span>';
@@ -83,7 +91,7 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
         helper++;
     }  
     
-    if($("#"+appointmentID).attr("data-expired")=="true"){      //checking if clicked appointment is expired
+    if($("#"+appointmentID).attr("data-expired")=="true"){      //checking if clicked appointment is expired=> hide user interaction possibility
         $("#hOption").text("Appointment "+serverResponse[0]["Titel"]+" is expired");
         $('#userinp').hide();
         $('#button').hide();
@@ -98,7 +106,7 @@ function showAppointmentUserData(serverResponse){        // executed after data 
     console.log(serverResponse);
     let allIndexes= [];     //holds all options for appointment
     for(let entry of serverResponse){
-        if(entry["comment"]!==null){            //display comments
+        if(entry["comment"]!==""){            //display comments
             let txt1 = '<div class="card" style="width: 18rem;"><div class="card-body">'; //oncklick="showAppointment(this)"
             let txt2 = '<h5 class="card-title">'+entry["userName"]+'</h5>';
             let txt3 = '<p class="card-text">'+entry["comment"]+'</p>';
@@ -122,6 +130,38 @@ function showAppointmentUserData(serverResponse){        // executed after data 
     }
 }
 
+function sendChoice(){      //send user choice to backend
+    let username= $('#userName').val();
+    let comment= ($('#Comment').val()=="" ? null : $('#Comment').val());
+    let checkedIDs = [];
+    let appID= "";
+    $('.form-check-input').each(function() {            // for each input checkbox
+        if($(this).is(':checked')){         //if checked checkbox => get id which was stored in html (= ID in database)
+            let tempID= $(this).attr("data-id");
+            checkedIDs.push(tempID);
+            appID= $(this).attr("data-appID");      //ID in DB for appointment
+        }
+    });
+    
+    let myObj = { "username": username, "choice":checkedIDs, "comment":comment, "appID": appID};
+    console.log(JSON.stringify(myObj));
+    //validation needed
+
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        cache: false,
+        data: {method: methodName[4], parameter: JSON.stringify(myObj)},
+        dataType: "json",
+        success: function (response) {      
+            console.log("success");
+        }
+    });
+}
+
+/*
+        create new appointment
+*/
 function loadForm(){        //make form visible and hide create button
     $("#btnFormCreate").hide();
     $("#formCreate").removeAttr("hidden");
@@ -161,7 +201,7 @@ function validateForm(){
             console.log("success");
         }
     });
-    
-      
 }
+
+
 

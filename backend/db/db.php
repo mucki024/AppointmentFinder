@@ -19,7 +19,7 @@
         }
 
         public function getAppointmentOptions($appID){        // query appointment options
-            $stmt = $this->db->prepare("SELECT appointments.Titel,choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
+            $stmt = $this->db->prepare("SELECT appointments.Titel,choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer,choosedate.appointmentsID FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
             $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,6 +51,31 @@
             $stmt->bindParam(2,$appindex);
             $stmt->execute();
         }
+
+        public function saveChoice($username,$singleChoice,$appID){
+            $stmt = $this->db->prepare("INSERT INTO userchoice (userName, choiceDateID,appointmentsID) VALUES (?, ?, ?)");
+            $stmt->bindParam(1,$username);
+            $stmt->bindParam(2,$singleChoice);
+            $stmt->bindParam(3,$appID);
+            $stmt->execute();
+            $last_id = $this->db->lastInsertId();
+            $this->increaseVotes($singleChoice);
+            return $last_id;
+        }
+
+        public function increaseVotes($singleChoice){
+            $stmt = $this->db->prepare("UPDATE choosedate SET votes= votes+1 WHERE choiceDateID=?");
+            $stmt->bindParam(1,$singleChoice);
+            $stmt->execute();
+        }
+
+        public function saveComment($lastID,$comment){
+            $stmt = $this->db->prepare("UPDATE userchoice  SET comment=? WHERE userChoiceID=?");
+            $stmt->bindParam(1,$comment);
+            $stmt->bindParam(2,$lastID);
+            $stmt->execute();
+        }
+        
 
         function __destruct() { // close db connection
             $this->db = null;
