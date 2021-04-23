@@ -21,6 +21,7 @@ class SimpleLogic
                 break;
             case "appointmentUsers":
                 $res = $this->dh->queryAppointmentUserData($param);
+                //($res==NULL) ? $res="no comment" : $res ;           //no comment yet for appointment
                 break;
             case "createAppointment":
                 //no return

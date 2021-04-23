@@ -1,10 +1,3 @@
-
-<?php 
-    //require_once '../backend/db/dbConfig.php';
-    //require_once '../backend/serviceHandler.php';
-?>
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -27,15 +20,9 @@
   <fieldset class="huelle">
   <div class="container">
     <h1>Overview of the appointments:</h1>
-    
-        <div class="list-group" id="listAppointments">
-        </div>  
-        
+        <div class="list-group" id="listAppointments"></div>     
   </div>  
   </fieldset>
-  
-
-
 
     <?php  //  All options will be shown here  ?> 
    
@@ -45,39 +32,17 @@
  
     <fieldset id="appointmentDetails" class="huelle">
       <h1 id="hOption">Choose an Option:</h1>
-      <label for="userName"> Username:</label>
-      <input type="text" id="userName" name="name"><br>
-      <label for="Comment">Comment:</label>
-      <input type="text" id="Comment" name="comment"><br>
-      <div id="dateOptions">
+      <div id="userinp">
+        <label for="userName"> Username:</label>
+        <input type="text" id="userName" name="name"><br>
+        <label for="Comment">Comment:</label>
+        <input type="text" id="Comment" name="comment"><br>
+        <div id="dateOptions">
       </div>
-
-      <!--
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" name="date" value="" id="date1">
-        <label class= "form-check-label" for="date1">
-        Hardcoded 03.05.2021
-        </label>
-      </div><br>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="date" value="" id="date2">
-      <label class="form-check-label" for="date2">
-      Hardcoded 04.05.2021
-      </label>
-    </div><br>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="date" value="" id="date3" >
-      <label class="form-check-label" for="date3">
-      Hardcoded 05.05.2021</label>
-    </div><br>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" name="date" value="" id="date4" >
-      <label class="form-check-label" for="date4">
-      Hardcoded 06.05.2021</label>
-      </div><br>
-    -->
       <button type="button" class="btn btn-success"  id="button">Accept</button>
+      </div>
     </fieldset>
+
     <fieldset id="createAppointment" class="huelle">
       <h1>Create new appointment</h1>
       <button type="button" class="btn btn-success"  id="btnFormCreate">create appointment</button>

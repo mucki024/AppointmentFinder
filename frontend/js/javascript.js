@@ -26,7 +26,7 @@ function loaddata(methodN,searchterm) {     // for loading data from db => shoul
                     showAppointments(response);     //
                     break;
                 case methodName[1]:     //data for single appointment options
-                    showAppointmentOptions(response);
+                    showAppointmentOptions(response,searchterm);
                     break;
                 case methodName[2]:     //data for useer comments and other votes
                     showAppointmentUserData(response);
@@ -48,14 +48,15 @@ function showAppointments(serverResponse){      // load appointments into list
         let currentdate=new Date();     //cur dateTime
         let expireDate= new Date(entry["ablaufDatum"]);
         let txt1 = '<button type="button" class="list-group-item list-group-item-action" '; //oncklick="showAppointment(this)"
-        let txt4 = 'id="'+entry["id"]+'"';
-        let txt2 = '>'+entry["titel"];
-        let txt3 = '</button>';
-        if(expireDate.getTime() < currentdate){         // appointment already expired => button disabled
-            $("#listAppointments").append(txt1+'id="expired" disabled'+txt2+txt3);
+        let txt2 = 'id="'+entry["id"]+'"';
+        let txt3 = '>'+entry["titel"];
+        let txt4 = '</button>';
+        if(expireDate.getTime() < currentdate){                         //if appointment expired => 
+            $("#listAppointments").append(txt1+txt2+'data-expired="true"'+txt3+txt4);
+            $('#listAppointments :last-child').css("background-color","grey");
             continue;
         }
-        $("#listAppointments").append(txt1+txt4+txt2+txt3);
+        $("#listAppointments").append(txt1+txt2+txt3+txt4);
         //$("#"+entry["id"]).on("click",showAppointment(entry["id"]));     // click on appointment to see details (needs to be loaded here=> because jquery)
         //document.getElementById(entry["id"]).addEventListener("click",showAppointment(entry["id"]));
     }
@@ -63,12 +64,11 @@ function showAppointments(serverResponse){      // load appointments into list
 
 function loadAppointment(){        // executed if clicked on appointment  => another case in ajax => get appointment options
     let appointmentID= $(this).attr('id'); //appointmentID
-    console.log("app click works");
     loaddata(methodName[1],appointmentID);     //load all appointments
     loaddata(methodName[2],appointmentID);     //load all appointments
 }
 
-function showAppointmentOptions(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
+function showAppointmentOptions(serverResponse,appointmentID){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
     $("#hOption").text("Choose for "+serverResponse[0]["Titel"]);
     let helper=1;
@@ -81,7 +81,16 @@ function showAppointmentOptions(serverResponse){        // executed after data f
         let txt6 = '</div><br>';
         $("#dateOptions").append(txt1+txt2+txt3+txt4+txt5+txt6);        //append in tablerow of head
         helper++;
+    }  
+    
+    if($("#"+appointmentID).attr("data-expired")=="true"){      //checking if clicked appointment is expired
+        $("#hOption").text("Appointment "+serverResponse[0]["Titel"]+" is expired");
+        $('#userinp').hide();
+        $('#button').hide();
+        $('#userinp').hide();
+        $('.form-check-input').hide();
     }
+        
     $("#appointmentDetails").show();
 }
 
@@ -97,7 +106,7 @@ function showAppointmentUserData(serverResponse){        // executed after data 
             $("#appointmentDetails").append(txt1+txt2+txt3+txt4);        //append in tablerow of head
         }
         if(!allIndexes.includes(entry["choiceDateID"])){        //if dateOption is not spotted yet, include it in array
-            allIndexes.push(entry["choiceDateID"]);
+            allIndexes.push(entry["choiceDateID"]);             //create array with every choice for one appointment
         }
     }   
     for(let singleIndex of allIndexes){     // for every index of dateOptions display the users who voted for it
