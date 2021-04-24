@@ -107,6 +107,7 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
 
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
+    $("#listAppointments").empty();
     let allIndexes= [];     //holds all options for appointment
     for(let entry of serverResponse){
         if(entry["comment"]!==""){            //display comments
