@@ -41,6 +41,7 @@
       </div>
       <button type="button" class="btn btn-success"  id="button">Accept</button>
       </div>
+      <button type="button" class="btn btn-success"  id="deleteApp">delete Appointment</button>
     </fieldset>
 
     <fieldset id="createAppointment" class="huelle">
@@ -52,16 +53,20 @@
         <input type="name" class="form-control" name="formTitel" id="formTitel" >
         <label for="formPlace">place</label>
         <input type="name" class="form-control" id="formPlace">
-        <label for="formPlace">Dateoption1</label>
-        <input type="date" class="form-control" id="formDate1">
-        <input type="time" class="form-control" id="formTime1">
+        <div id="appendDateOption">
+          <label for="formPlace">Dateoption1</label>
+          <input type="date" class="form-control" id="formDate1">
+          <input type="time" class="form-control" id="formTime1"> 
+          <br>
+          <button type="button" class="btn btn-success"  id="addOption">add Option</button>         
+        </div>
         <label for="formDuration">select duration [h:min]</label>
         <input type="time" id="formDuration" > 
         <label for="formExpireDate">expire date</label>
         <input type="date" class="form-control" id="formExpireDate">
         <input type="time" id="formExpireTime" > 
         <br>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
       </form> 
     </fieldset>
   </div>

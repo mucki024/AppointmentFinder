@@ -38,7 +38,10 @@ class DataHandler
         $expireDate = $arrForm["expireDate"];
         $dateOption1 = $arrForm["dateOption1"];
         $createdIndex= $this->db->createAppointmentDB($titel,$place,$duration,$expireDate);
-        $this->db->createDateOption($createdIndex,$dateOption1);
+        foreach($dateOption1 as $singleOption){     //for every created choice in frontend
+            $this->db->createDateOption($createdIndex,$singleOption);
+        }
+        //$this->db->createDateOption($createdIndex,$dateOption1);
     }
 
     public function saveChoice($arrChoices){

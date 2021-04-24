@@ -2,6 +2,7 @@
 
 // methodnames for accessing db
 var methodName = ["allAppointments","appointmentOptions","appointmentUsers","createAppointment","createChoice"];
+var dateOptions= 1;
 //var dbResponse;
 
 $(document).ready(function () {
@@ -11,6 +12,8 @@ $(document).ready(function () {
     $("#btnFormCreate").on("click",loadForm);
     $('#formCreate').on("submit",validateForm);
     $('#button').on("click",sendChoice);
+    $('#addOption').on("click",addDateOption);
+    //$('#deleteApp').on("click",deleteAppointment);
 });
 
 function loaddata(methodN,searchterm) {     // for loading data from db => should be used multiple times depending on desired query
@@ -174,14 +177,32 @@ function validateForm(){
     $("#formCreate").attr("hidden",true);
     event.preventDefault();     //important! otherwise the form will reload the whole page and ajax wont be executed right 
     let arrForm = [];
-    let myObj = { "titel":"", "place":"", "duration":"","dateOption1":"", "expireDate":"" };
+    let titel= $("#formTitel").val();
+    let place= $("#formPlace").val();
+    let duration= $("#formDuration").val();
+    let expireDate= $("#formExpireDate").val();
+    let expireTime= $("#formExpireTime").val();
+    let expireDateTime = new Date(expireDate+" "+expireTime);
+
+    for(let x=1; x <= dateOptions; x++){        //dateptions are variable=> save them in array and send them with other information to backend
+        let tempDate= $("#formDate"+x).val();
+        let tempTime= $("#formTime"+x).val();
+        let dateOption = new Date(tempDate+" "+tempTime);
+        arrForm.push(dateOption);
+    }
+
+    let myObj = { "titel": titel, "place": place, "duration": duration, "dateOption1": arrForm, "expireDate": expireDateTime };
+    dateOptions =1;         //reset it for new form
+    console.log(JSON.stringify(myObj));
     //form validation needs to be added
 
-
+/*
     $('#formCreate').children('input').each(function () {       // for each input children save user input in array
         arrForm.push(this.value); // "this" is the current element in the loop
     });
+    */
     //convert date and time to datetime
+    /*
     let dateOption1 = new Date(arrForm[2]+" "+arrForm[3]);
     let expireDate = new Date(arrForm[5]+" "+arrForm[6]);
     //created JS object for better acces in backend
@@ -190,6 +211,7 @@ function validateForm(){
     myObj["duration"] = arrForm[4];
     myObj["dateOption1"] = dateOption1;
     myObj["expireDate"] = expireDate;
+    */
     //send data as post to backend and as JSON 
     $.ajax({
         type: "POST",
@@ -203,5 +225,10 @@ function validateForm(){
     });
 }
 
-
+function addDateOption(){       // add new fields to form
+    dateOptions++;                  //track amount of date options
+    $("#appendDateOption").append('<label for="formPlace">Dateoption'+dateOptions+'</label>');
+    $("#appendDateOption").append('<input type="date" class="form-control" id="formDate'+dateOptions+'">');
+    $("#appendDateOption").append('<input type="time" class="form-control" id="formTime'+dateOptions+'"> ');
+}
 
