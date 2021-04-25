@@ -31,7 +31,12 @@
    
  
     <fieldset id="appointmentDetails" class="huelle">
-      <h1 id="hOption">Choose an Option:</h1>
+      <div class="input-group">
+        <h1 id="hOption">Choose an Option:</h1>
+        <span class="input-group-btn">
+        <button type="button" class="btn btn-default"  id="deleteApp" >delete</button>
+        </span>
+      </div>
       <div id="userinp">
         <label for="userName"> Username:</label>
         <input type="text" id="userName" name="name"><br>
@@ -41,7 +46,7 @@
       </div>
       <button type="button" class="btn btn-success"  id="button">Accept</button>
       </div>
-      <button type="button" class="btn btn-success"  id="deleteApp">delete Appointment</button>
+      
     </fieldset>
 
     <fieldset id="createAppointment" class="huelle">

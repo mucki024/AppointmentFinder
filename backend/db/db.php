@@ -75,6 +75,18 @@
             $stmt->bindParam(2,$lastID);
             $stmt->execute();
         }
+
+        public function deleteApp($id){
+            $stmt = $this->db->prepare("DELETE FROM appointments  WHERE AppointmentID=?");
+            $stmt->bindParam(1,$id);
+            $stmt->execute();
+            $stmt = $this->db->prepare("DELETE FROM choosedate   WHERE appointmentsID=?");
+            $stmt->bindParam(1,$id);
+            $stmt->execute();
+            $stmt = $this->db->prepare("DELETE FROM userchoice   WHERE appointmentsID=?");
+            $stmt->bindParam(1,$id);
+            $stmt->execute();
+        }
         
 
         function __destruct() { // close db connection

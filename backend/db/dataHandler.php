@@ -54,6 +54,10 @@ class DataHandler
         }
         $this->db->saveComment($lastID,$comment);     //so that only one comment is added, even by checking multiple checkboxes
     }
+
+    public function deleteApp($id){
+        $this->db->deleteApp($id);
+    }
 /*
     private static function getAllAppointments(){      //query all appointments, insert them to object array and give back(in Datahandler)
         // prepare sql and bind parameters

@@ -32,6 +32,11 @@ class SimpleLogic
                 $this->dh->saveChoice($param);
                 $res= "success";
                 break;
+                
+            case "deleteApp":
+                $this->dh->deleteApp($param);
+                $res= "success";
+                break;
             default:
                 $res = null;
                 break;

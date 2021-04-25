@@ -1,7 +1,7 @@
 //Starting point for JQuery init
 
 // methodnames for accessing db
-var methodName = ["allAppointments","appointmentOptions","appointmentUsers","createAppointment","createChoice"];
+var methodName = ["allAppointments","appointmentOptions","appointmentUsers","createAppointment","createChoice","deleteApp"];
 var dateOptions= 1;
 //var dbResponse;
 
@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#formCreate').on("submit",validateForm);
     $('#button').on("click",sendChoice);
     $('#addOption').on("click",addDateOption);
-    //$('#deleteApp').on("click",deleteAppointment);
+    $('#deleteApp').on("click",deleteAppointment);
 });
 
 function loaddata(methodN,searchterm) {     // for loading data from db => should be used multiple times depending on desired query
@@ -101,7 +101,7 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
         $('#userinp').hide();
         $('.form-check-input').hide();
     }
-        
+    $("#deleteApp").attr("data-id",serverResponse[0]["appointmentsID"]);            //save id in delte button
     $("#appointmentDetails").show();
 }
 
@@ -233,3 +233,17 @@ function addDateOption(){       // add new fields to form
     $("#appendDateOption").append('<input type="time" class="form-control" id="formTime'+dateOptions+'"> ');
 }
 
+function deleteAppointment(){
+    let tempID= $(this).attr("data-id");
+    console.log(tempID);
+    $.ajax({
+        type: "POST",
+        url: "../backend/serviceHandler.php",
+        cache: false,
+        data: {method: methodName[5], parameter:tempID },
+        dataType: "json",
+        success: function (response) {      
+            console.log("success");
+        }
+    });
+}
