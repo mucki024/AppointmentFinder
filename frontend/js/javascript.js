@@ -72,8 +72,7 @@ function showAppointments(serverResponse){      // load appointments into list
 
 function loadAppointment(){        // executed if clicked on appointment  => another case in ajax => get appointment options
     let appointmentID= $(this).attr('id'); //appointmentID
-    loaddata(methodName[1],appointmentID);     //load all appointments
-    loaddata(methodName[2],appointmentID);     //load all appointments
+    loaddata(methodName[1],appointmentID); //loadDateOptions for detail    
 }
 
 /*
@@ -82,6 +81,8 @@ function loadAppointment(){        // executed if clicked on appointment  => ano
 function showAppointmentOptions(serverResponse,appointmentID){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
     $("#hOption").text("Choose for "+serverResponse[0]["Titel"]);
+    $("#dur").text("Duration: "+serverResponse[0]["Dauer"]+" [h]");
+    $("#ort").text("Place: "+serverResponse[0]["Ort"]);
     let helper=1;
     for(let entry of serverResponse){       //display date options
         let txt1 = '<div class="form-check">';
@@ -98,11 +99,11 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
         $("#hOption").text("Appointment "+serverResponse[0]["Titel"]+" is expired");
         $('#userinp').hide();
         $('#button').hide();
-        $('#userinp').hide();
         $('.form-check-input').hide();
     }
     $("#deleteApp").attr("data-id",serverResponse[0]["appointmentsID"]);            //save id in delte button
     $("#appointmentDetails").show();
+    loaddata(methodName[2],appointmentID);              //after date options loaded=> load user Data
 }
 
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)

@@ -42,10 +42,13 @@
         <input type="text" id="userName" name="name"><br>
         <label for="Comment">Comment:</label>
         <input type="text" id="Comment" name="comment"><br>
+      </div> 
+      <p id="dur">Duration: </p> 
+      <p id="ort">Place: </p> 
         <div id="dateOptions">
-      </div>
+        </div>
       <button type="button" class="btn btn-success"  id="button">Accept</button>
-      </div>
+      
       
     </fieldset>
 
