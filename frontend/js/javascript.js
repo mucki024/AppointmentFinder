@@ -185,11 +185,13 @@ function validateForm(){
     let expireDate= $("#formExpireDate").val();
     let expireTime= $("#formExpireTime").val();
     let expireDateTime = new Date(expireDate+" "+expireTime);
+    expireDateTime.setHours( expireDateTime.getHours() + 2 );
 
     for(let x=1; x <= dateOptions; x++){        //dateptions are variable=> save them in array and send them with other information to backend
         let tempDate= $("#formDate"+x).val();
         let tempTime= $("#formTime"+x).val();
         let dateOption = new Date(tempDate+" "+tempTime);
+        dateOption.setHours( dateOption.getHours() + 2 );
         arrForm.push(dateOption);
     }
 
@@ -223,6 +225,7 @@ function validateForm(){
         dataType: "json",
         success: function (response) {      
             console.log("success");
+            window.location.reload(true);
         }
     });
 }
@@ -245,6 +248,7 @@ function deleteAppointment(){
         dataType: "json",
         success: function (response) {      
             console.log("success");
+            window.location.reload(true);
         }
     });
 }
