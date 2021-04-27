@@ -225,7 +225,7 @@ function validateForm(){
         dataType: "json",
         success: function (response) {      
             console.log("success");
-           // window.location.reload(true);
+            window.location.reload(true);
         }
     });
 }
