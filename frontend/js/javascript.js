@@ -80,16 +80,21 @@ function loadAppointment(){        // executed if clicked on appointment  => ano
 */
 function showAppointmentOptions(serverResponse,appointmentID){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
+    $("#dateOptions").empty();          //empty field for options => this is for clicking a new element
+    $("#userData").empty();
+    $('#userinp').show();               //for special case => expired appointment was clicked and then a not expired one => we need to display user input  
+    $('#button').show();
     $("#hOption").text("Choose for "+serverResponse[0]["Titel"]);
     $("#dur").text("Duration: "+serverResponse[0]["Dauer"]+" [h]");
     $("#ort").text("Place: "+serverResponse[0]["Ort"]);
     let helper=1;
     for(let entry of serverResponse){       //display date options
+        let date= new Date(entry["dateOption"]);
         let txt1 = '<div class="form-check">';
-        let txt2 = '<input class="form-check-input" type="checkbox" data-id="'+entry["choiceDateID"]+'" data-appID='+entry["appointmentsID"]+' id="option'+helper+'">';        //save id of checkbox in html
+        let txt2 = '<div class="row col-3"><input class="form-check-input" type="checkbox" data-id="'+entry["choiceDateID"]+'" data-appID='+entry["appointmentsID"]+' id="option'+helper+'">';        //save id of checkbox in html
         let txt3 = '<label class= "form-check-label" for="option'+helper+'">';
-        let txt4 = entry["dateOption"]+'</label>';
-        let txt5 = '<span> '+entry["votes"]+' votes</span>';
+        let txt4 = date.toLocaleDateString("en-EN", { weekday: 'short' })+" "+entry["dateOption"]+'</label>';
+        let txt5 = '<label> '+entry["votes"]+' votes</label></div>';
         let txt6 = '</div><br>';
         $("#dateOptions").append(txt1+txt2+txt3+txt4+txt5+txt6);        //append in tablerow of head
         helper++;
@@ -108,7 +113,6 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
 
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
-    $("#listAppointments").empty();
     let allIndexes= [];     //holds all options for appointment
     for(let entry of serverResponse){
         if(entry["comment"]!==""){            //display comments
@@ -116,7 +120,7 @@ function showAppointmentUserData(serverResponse){        // executed after data 
             let txt2 = '<h5 class="card-title">'+entry["userName"]+'</h5>';
             let txt3 = '<p class="card-text">'+entry["comment"]+'</p>';
             let txt4 = '</div></div>';
-            $("#appointmentDetails").append(txt1+txt2+txt3+txt4);        //append in tablerow of head
+            $("#userData").append(txt1+txt2+txt3+txt4);        //append in tablerow of head
         }
         if(!allIndexes.includes(entry["choiceDateID"])){        //if dateOption is not spotted yet, include it in array
             allIndexes.push(entry["choiceDateID"]);             //create array with every choice for one appointment
@@ -125,7 +129,7 @@ function showAppointmentUserData(serverResponse){        // executed after data 
     for(let singleIndex of allIndexes){     // for every index of dateOptions display the users who voted for it
         let txt1= '<label>Option '+singleIndex+': </label>';
         let txt2= '<ul id="userChose'+singleIndex+'" class="list-group list-group-horizontal"></ul>';       //create new ul for everey option
-        $("#appointmentDetails").append(txt1+txt2);
+        $("#userData").append(txt1+txt2);
         for(let entry of serverResponse){       //if a user checked this displayed option => display the username
             if(entry["choiceDateID"]== singleIndex){
                 let txt3 = '<li class="list-group-item">'+entry["userName"]+'</li>';
@@ -185,8 +189,13 @@ function validateForm(){
     let expireDate= $("#formExpireDate").val();
     let expireTime= $("#formExpireTime").val();
     let expireDateTime = new Date(expireDate+" "+expireTime);
+    if(expireDate===""|| expireTime=== ""){       //if nothing entered expire date=> first option
+        let expDate= $("#formDate1").val();
+        let expTime= $("#formTime1").val();
+        expireDateTime = new Date(expDate+" "+expTime);
+    } 
     expireDateTime.setMinutes( expireDateTime.getMinutes() - expireDateTime.getTimezoneOffset() );      // time input is in UTC not local timezone => needs to be converted!!
-
+    
     for(let x=1; x <= dateOptions; x++){        //dateptions are variable=> save them in array and send them with other information to backend
         let tempDate= $("#formDate"+x).val();
         let tempTime= $("#formTime"+x).val();
@@ -225,7 +234,7 @@ function validateForm(){
         dataType: "json",
         success: function (response) {      
             console.log("success");
-            window.location.reload(true);
+            //window.location.reload(true);
         }
     });
 }

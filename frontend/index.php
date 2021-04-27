@@ -39,7 +39,7 @@
       </div>
       <div id="userinp">
         <label for="userName"> Username:</label>
-        <input type="text" id="userName" name="name"><br>
+        <input type="text" id="userName" name="name" required><br>
         <label for="Comment">Comment:</label>
         <input type="text" id="Comment" name="comment"><br>
       </div> 
@@ -48,8 +48,9 @@
         <div id="dateOptions">
         </div>
       <button type="button" class="btn btn-success"  id="button">Accept</button>
-      
-      
+      <div id="userData">
+
+      </div>
     </fieldset>
 
     <fieldset id="createAppointment" class="huelle">
@@ -58,18 +59,18 @@
       <!--form is hidden -->
       <form id="formCreate"  hidden>
         <label for="formTitel">titel</label>
-        <input type="name" class="form-control" name="formTitel" id="formTitel" >
+        <input type="name" class="form-control" name="formTitel" id="formTitel" required>
         <label for="formPlace">place</label>
         <input type="name" class="form-control" id="formPlace">
         <div id="appendDateOption">
           <label for="formPlace">Dateoption1</label>
-          <input type="date" class="form-control" id="formDate1">
-          <input type="time" class="form-control" id="formTime1"> 
+          <input type="date" class="form-control" id="formDate1" required>
+          <input type="time" class="form-control" id="formTime1" required> 
           <br>
           <button type="button" class="btn btn-success"  id="addOption">add Option</button>         
         </div>
         <label for="formDuration">select duration [h:min]</label>
-        <input type="time" id="formDuration" > 
+        <input type="time" id="formDuration" required> 
         <label for="formExpireDate">expire date</label>
         <input type="date" class="form-control" id="formExpireDate">
         <input type="time" id="formExpireTime" > 
