@@ -114,6 +114,7 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
     let allIndexes= [];     //holds all options for appointment
+    $("#userData").append("<label>comment section:</label>");
     for(let entry of serverResponse){
         if(entry["comment"]!==""){            //display comments
             let txt1 = '<div class="card" style="width: 18rem;"><div class="card-body">'; //oncklick="showAppointment(this)"
@@ -126,8 +127,9 @@ function showAppointmentUserData(serverResponse){        // executed after data 
             allIndexes.push(entry["choiceDateID"]);             //create array with every choice for one appointment
         }
     }   
+    let counter=1;
     for(let singleIndex of allIndexes){     // for every index of dateOptions display the users who voted for it
-        let txt1= '<label>Option '+singleIndex+': </label>';
+        let txt1= '<label>User voted option '+counter+': </label>';
         let txt2= '<ul id="userChose'+singleIndex+'" class="list-group list-group-horizontal"></ul>';       //create new ul for everey option
         $("#userData").append(txt1+txt2);
         for(let entry of serverResponse){       //if a user checked this displayed option => display the username
@@ -136,6 +138,7 @@ function showAppointmentUserData(serverResponse){        // executed after data 
                 $("#userChose"+singleIndex).append(txt3);
             }
         }
+        counter++;
     }
 }
 
@@ -144,17 +147,27 @@ function sendChoice(){      //send user choice to backend
     let comment= ($('#Comment').val()=="" ? null : $('#Comment').val());
     let checkedIDs = [];
     let appID= "";
+    helpvar=0;
     $('.form-check-input').each(function() {            // for each input checkbox
         if($(this).is(':checked')){         //if checked checkbox => get id which was stored in html (= ID in database)
             let tempID= $(this).attr("data-id");
             checkedIDs.push(tempID);
             appID= $(this).attr("data-appID");      //ID in DB for appointment
+            helpvar++;
         }
     });
     
     let myObj = { "username": username, "choice":checkedIDs, "comment":comment, "appID": appID};
     console.log(JSON.stringify(myObj));
     //validation needed
+    if(username===""){     // no user name 
+        window.alert("please type in a username");
+        return;
+    }
+    if(helpvar==0){     // no checkbox checked
+        window.alert("please choose a checkbox");
+        return;
+    }
 
     $.ajax({
         type: "POST",
