@@ -19,7 +19,7 @@
         }
 
         public function getAppointmentOptions($appID){        // query appointment options
-            $stmt = $this->db->prepare("SELECT appointments.Ort, appointments.Titel,choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer,choosedate.appointmentsID FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
+            $stmt = $this->db->prepare("SELECT appointments.Ort, appointments.Titel,appointments.Beschreibung,choosedate.choiceDateID,choosedate.dateOption,choosedate.votes,appointments.Dauer,choosedate.appointmentsID FROM choosedate JOIN appointments ON choosedate.appointmentsID=appointments.AppointmentID WHERE choosedate.appointmentsID=? ");
             $stmt->bindParam(1,$appID);
             $stmt->execute();
             $wholeData= $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,12 +34,13 @@
             return $wholeData;
         }
 
-        public function createAppointmentDB($titel,$place,$duration,$expireDate){
-            $stmt = $this->db->prepare("INSERT INTO appointments (Titel, Ort, Dauer, Ablaufdatum) VALUES (?, ?, ?, ?)");
+        public function createAppointmentDB($titel,$details,$place,$duration,$expireDate){
+            $stmt = $this->db->prepare("INSERT INTO appointments (Titel,Beschreibung, Ort, Dauer, Ablaufdatum) VALUES (?, ?, ?, ?, ?)");
             $stmt->bindParam(1,$titel);
-            $stmt->bindParam(2,$place);
-            $stmt->bindParam(3,$duration);
-            $stmt->bindParam(4,$expireDate);
+            $stmt->bindParam(2,$details);
+            $stmt->bindParam(3,$place);
+            $stmt->bindParam(4,$duration);
+            $stmt->bindParam(5,$expireDate);
             $stmt->execute();
             $last_id = $this->db->lastInsertId();
             return $last_id;

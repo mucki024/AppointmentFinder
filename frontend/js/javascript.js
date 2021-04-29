@@ -87,6 +87,7 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
     $("#hOption").text("Choose for "+serverResponse[0]["Titel"]);
     $("#dur").text("Duration: "+serverResponse[0]["Dauer"]+" [h]");
     $("#ort").text("Place: "+serverResponse[0]["Ort"]);
+    $("#beschreibung").text("Details: "+serverResponse[0]["Beschreibung"]);
     let helper=1;
     for(let entry of serverResponse){       //display date options
         let date= new Date(entry["dateOption"]);
@@ -114,10 +115,11 @@ function showAppointmentOptions(serverResponse,appointmentID){        // execute
 function showAppointmentUserData(serverResponse){        // executed after data from server is here (generated after cklick on certain appointment)
     console.log(serverResponse);
     let allIndexes= [];     //holds all options for appointment
-    $("#userData").append("<label>comment section:</label>");
+    let allDates=[];
+    $("#userData").append("<label>comment section:</label><br>");
     for(let entry of serverResponse){
         if(entry["comment"]!==""){            //display comments
-            let txt1 = '<div class="card" style="width: 18rem;"><div class="card-body">'; //oncklick="showAppointment(this)"
+            let txt1 = '<div class="card"><div class="card-body">'; //oncklick="showAppointment(this)"
             let txt2 = '<h5 class="card-title">'+entry["userName"]+'</h5>';
             let txt3 = '<p class="card-text">'+entry["comment"]+'</p>';
             let txt4 = '</div></div>';
@@ -125,11 +127,12 @@ function showAppointmentUserData(serverResponse){        // executed after data 
         }
         if(!allIndexes.includes(entry["choiceDateID"])){        //if dateOption is not spotted yet, include it in array
             allIndexes.push(entry["choiceDateID"]);             //create array with every choice for one appointment
+            allDates.push(entry["dateOption"]);
         }
     }   
-    let counter=1;
+    let startIndex=allIndexes[0];           //every entry is one after another so through id we can tell which option the user chose 
     for(let singleIndex of allIndexes){     // for every index of dateOptions display the users who voted for it
-        let txt1= '<label>User voted option '+counter+': </label>';
+        let txt1= '<label>User voted option '+(singleIndex-startIndex+1)+': </label>';
         let txt2= '<ul id="userChose'+singleIndex+'" class="list-group list-group-horizontal"></ul>';       //create new ul for everey option
         $("#userData").append(txt1+txt2);
         for(let entry of serverResponse){       //if a user checked this displayed option => display the username
@@ -138,7 +141,7 @@ function showAppointmentUserData(serverResponse){        // executed after data 
                 $("#userChose"+singleIndex).append(txt3);
             }
         }
-        counter++;
+        $("#userChose"+singleIndex).css("overflow-x","auto");           // if list to big=> scrollbar added
     }
 }
 
@@ -177,6 +180,9 @@ function sendChoice(){      //send user choice to backend
         dataType: "json",
         success: function (response) {      
             console.log("success");
+            $("#userName").val("");
+            $("#Comment").val("");
+            loaddata(methodName[1],appID);          //reload details
         }
     });
 }
@@ -197,6 +203,7 @@ function validateForm(){
     event.preventDefault();     //important! otherwise the form will reload the whole page and ajax wont be executed right 
     let arrForm = [];
     let titel= $("#formTitel").val();
+    let details= $("#beschr").val();
     let place= $("#formPlace").val();
     let duration= $("#formDuration").val();
     let expireDate= $("#formExpireDate").val();
@@ -217,27 +224,16 @@ function validateForm(){
         arrForm.push(dateOption);
     }
 
-    let myObj = { "titel": titel, "place": place, "duration": duration, "dateOption1": arrForm, "expireDate": expireDateTime };
+    if(arrForm.length ==1){     //only one option => should not be possible
+        window.alert("please add a second option for your colleagues :)");
+        return;
+    }
+
+    let myObj = { "titel": titel,"details":details, "place": place, "duration": duration, "dateOption1": arrForm, "expireDate": expireDateTime };
     dateOptions =1;         //reset it for new form
     console.log(JSON.stringify(myObj));
     //form validation needs to be added
 
-/*
-    $('#formCreate').children('input').each(function () {       // for each input children save user input in array
-        arrForm.push(this.value); // "this" is the current element in the loop
-    });
-    */
-    //convert date and time to datetime
-    /*
-    let dateOption1 = new Date(arrForm[2]+" "+arrForm[3]);
-    let expireDate = new Date(arrForm[5]+" "+arrForm[6]);
-    //created JS object for better acces in backend
-    myObj["titel"] = arrForm[0];
-    myObj["place"] = arrForm[1];
-    myObj["duration"] = arrForm[4];
-    myObj["dateOption1"] = dateOption1;
-    myObj["expireDate"] = expireDate;
-    */
     //send data as post to backend and as JSON 
     $.ajax({
         type: "POST",
@@ -247,7 +243,15 @@ function validateForm(){
         dataType: "json",
         success: function (response) {      
             console.log("success");
-            //window.location.reload(true);
+            $("#formTitel").val("");
+            $("#beschr").val("");
+            $("#formPlace").val("");
+            $("#formDate1").val("");
+            $("#formTime1").val("");
+            $("#formDuration").val("");
+            $("#formExpireDate").val("");
+            $("#formExpireTime").val("");
+            window.location.reload(true);
         }
     });
 }

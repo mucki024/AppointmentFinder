@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/javascript.js"></script>
     
     <script src="app.js"></script>
@@ -43,13 +43,13 @@
         <label for="Comment">Comment:</label>
         <input type="text" id="Comment" name="comment"><br>
       </div> 
+      <p id="beschreibung">beschreibung: </p> 
       <p id="dur">Duration: </p> 
       <p id="ort">Place: </p> 
         <div id="dateOptions">
         </div>
       <button type="button" class="btn btn-success"  id="button">Accept</button>
       <div id="userData">
-
       </div>
     </fieldset>
 
@@ -60,20 +60,22 @@
       <form id="formCreate"  hidden>
         <label for="formTitel">titel</label>
         <input type="name" class="form-control" name="formTitel" id="formTitel" required>
+        <label for="beschr">add Details</label>
+        <textarea  type="textfield" id="beschr" class="form-control" rows="3" cols="50"></textarea>
         <label for="formPlace">place</label>
         <input type="name" class="form-control" id="formPlace">
         <div id="appendDateOption">
           <label for="formPlace">Dateoption1</label>
           <input type="date" class="form-control" id="formDate1" required>
-          <input type="time" class="form-control" id="formTime1" required> 
-          <br>
-          <button type="button" class="btn btn-success"  id="addOption">add Option</button>         
+          <input type="time" class="form-control" id="formTime1" required>  
         </div>
-        <label for="formDuration">select duration [h:min]</label>
-        <input type="time" id="formDuration" required> 
+        <br>  
+        <button type="button" class="btn btn-success"  id="addOption">add Option</button> <br>  
+        <label for="formDuration">duration [h:min]</label>
+        <input type="time" id="formDuration" class="form-control"  required> 
         <label for="formExpireDate">expire date</label>
         <input type="date" class="form-control" id="formExpireDate">
-        <input type="time" id="formExpireTime" > 
+        <input type="time" class="form-control" id="formExpireTime" > 
         <br>
         <button type="submit" class="btn btn-success">Submit</button>
       </form> 

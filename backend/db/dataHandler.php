@@ -14,7 +14,7 @@ class DataHandler
         $wholeData= $this->db->getAllAppointments();        // query from db => return array with strings
         $objectArr=[];
         foreach($wholeData as $singleRow){      // go through every single row and create new object
-            $tempArr= new Appointment($singleRow["AppointmentID"],$singleRow["Titel"],$singleRow["Ort"],$singleRow["Dauer"],$singleRow["Datum"],$singleRow["Ablaufdatum"]);
+            $tempArr= new Appointment($singleRow["AppointmentID"],$singleRow["Titel"],$singleRow["Beschreibung"],$singleRow["Ort"],$singleRow["Dauer"],$singleRow["Datum"],$singleRow["Ablaufdatum"]);
             array_push($objectArr,$tempArr);    
         }
         return $objectArr;
@@ -33,11 +33,12 @@ class DataHandler
     public function createAppointment($arrForm){//$arrForm){
         //var_dump($arrForm) ;
         $titel = $arrForm["titel"];
+        $details = $arrForm["details"];
         $place = $arrForm["place"];
         $duration = $arrForm["duration"];
         $expireDate = $arrForm["expireDate"];
         $dateOption1 = $arrForm["dateOption1"];
-        $createdIndex= $this->db->createAppointmentDB($titel,$place,$duration,$expireDate);
+        $createdIndex= $this->db->createAppointmentDB($titel,$details,$place,$duration,$expireDate);
         foreach($dateOption1 as $singleOption){     //for every created choice in frontend
             $this->db->createDateOption($createdIndex,$singleOption);
         }
