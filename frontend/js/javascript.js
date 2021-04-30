@@ -59,7 +59,7 @@ function showAppointments(serverResponse){      // load appointments into list
         let txt2 = 'id="'+entry["id"]+'"';
         let txt3 = '>'+entry["titel"];
         let txt4 = '</button>';
-        if(expireDate.getTime() < currentdate){                         //if appointment expired => 
+        if(expireDate < currentdate){                         //if appointment expired => 
             $("#listAppointments").append(txt1+txt2+'data-expired="true"'+txt3+txt4);
             $('#listAppointments :last-child').css("background-color","grey");
             continue;
